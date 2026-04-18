@@ -7,6 +7,23 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class AlternativeSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'isCorrect', 'questionId', 'text', 'updatedAt'] as const
+  $columns = AlternativeSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare isCorrect: boolean
+  @column()
+  declare questionId: string
+  @column()
+  declare text: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class AuthAccessTokenSchema extends BaseModel {
   static $columns = ['abilities', 'createdAt', 'expiresAt', 'hash', 'id', 'lastUsedAt', 'name', 'tokenableId', 'type', 'updatedAt'] as const
   $columns = AuthAccessTokenSchema.$columns
@@ -25,26 +42,167 @@ export class AuthAccessTokenSchema extends BaseModel {
   @column()
   declare name: string | null
   @column()
-  declare tokenableId: number
+  declare tokenableId: string
   @column()
   declare type: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
+export class DisciplineSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'isApproved', 'name', 'subjectId', 'updatedAt'] as const
+  $columns = DisciplineSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare isApproved: boolean | null
+  @column()
+  declare name: string
+  @column()
+  declare subjectId: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class ParticipantAnswerSchema extends BaseModel {
+  static $columns = ['alternativeId', 'createdAt', 'id', 'participantId', 'pointsEarned', 'questionId', 'timeTakenMs', 'updatedAt'] as const
+  $columns = ParticipantAnswerSchema.$columns
+  @column()
+  declare alternativeId: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare participantId: string
+  @column()
+  declare pointsEarned: number
+  @column()
+  declare questionId: string
+  @column()
+  declare timeTakenMs: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class ParticipantSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'nickname', 'sessionId', 'totalScore', 'updatedAt', 'userId'] as const
+  $columns = ParticipantSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare nickname: string
+  @column()
+  declare sessionId: string
+  @column()
+  declare totalScore: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare userId: string | null
+}
+
+export class QuestionSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'quizId', 'text', 'timeLimitSeconds', 'type', 'updatedAt'] as const
+  $columns = QuestionSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare quizId: string
+  @column()
+  declare text: string
+  @column()
+  declare timeLimitSeconds: number
+  @column()
+  declare type: any
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class QuizSchema extends BaseModel {
+  static $columns = ['createdAt', 'description', 'disciplineId', 'id', 'isPublic', 'title', 'updatedAt', 'userId'] as const
+  $columns = QuizSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare description: string | null
+  @column()
+  declare disciplineId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare isPublic: boolean
+  @column()
+  declare title: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare userId: string
+}
+
+export class SessionSchema extends BaseModel {
+  static $columns = ['createdAt', 'hostId', 'id', 'isVisibleInLobby', 'pin', 'quizId', 'status', 'updatedAt'] as const
+  $columns = SessionSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare hostId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare isVisibleInLobby: boolean
+  @column()
+  declare pin: string | null
+  @column()
+  declare quizId: string
+  @column()
+  declare status: any
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class SubjectSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'isApproved', 'name', 'updatedAt'] as const
+  $columns = SubjectSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare isApproved: boolean | null
+  @column()
+  declare name: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class UserSchema extends BaseModel {
-  static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
+  static $columns = ['campus', 'course', 'cpf', 'createdAt', 'email', 'id', 'password', 'registration', 'role', 'updatedAt'] as const
   $columns = UserSchema.$columns
+  @column()
+  declare campus: string
+  @column()
+  declare course: string | null
+  @column()
+  declare cpf: string
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column()
   declare email: string
-  @column()
-  declare fullName: string | null
   @column({ isPrimary: true })
-  declare id: number
+  declare id: string
   @column({ serializeAs: null })
   declare password: string
+  @column()
+  declare registration: string
+  @column()
+  declare role: any
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }

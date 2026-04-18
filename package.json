@@ -34,6 +34,7 @@
     "#abilities/*": "./app/abilities/*.js",
     "#database/*": "./database/*.js",
     "#tests/*": "./tests/*.js",
+    "#socket_handlers/*": "./app/socket_handlers/*.js",
     "#start/*": "./start/*.js",
     "#config/*": "./config/*.js"
   },

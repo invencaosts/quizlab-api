@@ -2,17 +2,29 @@ import { UserSchema } from '#database/schema'
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
-import { type AccessToken, DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
+import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
+import { hasMany } from '@adonisjs/lucid/orm'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
+import Quiz from '#models/quiz'
+import Session from '#models/session'
+import Participant from '#models/participant'
 
 export default class User extends compose(UserSchema, withAuthFinder(hash)) {
   static accessTokens = DbAccessTokensProvider.forModel(User)
-  declare currentAccessToken?: AccessToken
+
+  @hasMany(() => Quiz)
+  declare quizzes: HasMany<typeof Quiz>
+
+  @hasMany(() => Session, { foreignKey: 'hostId' })
+  declare hostedSessions: HasMany<typeof Session>
+
+  @hasMany(() => Participant)
+  declare participations: HasMany<typeof Participant>
 
   get initials() {
-    const [first, last] = this.fullName ? this.fullName.split(' ') : this.email.split('@')
-    if (first && last) {
-      return `${first.charAt(0)}${last.charAt(0)}`.toUpperCase()
-    }
-    return `${first.slice(0, 2)}`.toUpperCase()
+    const [namePart] = this.email.split('@')
+    const first = namePart.charAt(0).toUpperCase()
+    const last = namePart.length > 1 ? namePart.charAt(1).toUpperCase() : ''
+    return `${first}${last}`
   }
 }

@@ -9,7 +9,14 @@
 
 import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
-import { controllers } from '#generated/controllers'
+
+const NewAccountController = () => import('#controllers/new_account_controller')
+const AccessTokenController = () => import('#controllers/access_token_controller')
+const ProfileController = () => import('#controllers/profile_controller')
+const SubjectsController = () => import('#controllers/subjects_controller')
+const DisciplinesController = () => import('#controllers/disciplines_controller')
+const QuizzesController = () => import('#controllers/quizzes_controller')
+const SessionsController = () => import('#controllers/sessions_controller')
 
 router.get('/', () => {
   return { hello: 'world' }
@@ -17,21 +24,33 @@ router.get('/', () => {
 
 router
   .group(() => {
+    // Autenticação
     router
       .group(() => {
-        router.post('signup', [controllers.NewAccount, 'store'])
-        router.post('login', [controllers.AccessToken, 'store'])
-        router.post('logout', [controllers.AccessToken, 'destroy']).use(middleware.auth())
+        router.post('signup', [NewAccountController, 'store'])
+        router.post('login', [AccessTokenController, 'store'])
+        router.post('logout', [AccessTokenController, 'destroy']).use(middleware.auth())
       })
       .prefix('auth')
       .as('auth')
 
+    // Perfil
     router
       .group(() => {
-        router.get('/profile', [controllers.Profile, 'show'])
+        router.get('/profile', [ProfileController, 'show'])
       })
       .prefix('account')
       .as('profile')
       .use(middleware.auth())
+
+    // CRUD Acadêmico
+    router.get('subjects', [SubjectsController, 'index'])
+    router.get('disciplines', [DisciplinesController, 'index'])
+    router.resource('quizzes', QuizzesController).use('*', middleware.auth())
+
+    // Motor de Jogo / Sessões
+    router.post('sessions', [SessionsController, 'store']).use(middleware.auth())
+    router.post('sessions/join', [SessionsController, 'join'])
+    router.get('sessions/lobby', [SessionsController, 'lobby'])
   })
   .prefix('/api/v1')
