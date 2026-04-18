@@ -64,7 +64,3 @@ O QuizLab é dividido em dois repositórios principais:
 - `/quizlab-app` -> Frontend Next.js.
 
 ---
-
-## Saiba Mais
-
-Acesse a [documentação do AdonisJS](https://docs.adonisjs.com) para entender mais sobre o framework.
