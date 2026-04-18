@@ -5,19 +5,19 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.increments('id').comment('ID Sequencial do Token')
       table
-        .integer('tokenable_id')
+        .uuid('tokenable_id')
         .notNullable()
-        .unsigned()
         .references('id')
         .inTable('users')
         .onDelete('CASCADE')
+        .comment('ID do usuário dono deste token')
 
-      table.string('type').notNullable()
-      table.string('name').nullable()
-      table.string('hash').notNullable()
-      table.text('abilities').notNullable()
+      table.string('type').notNullable().comment('Tipo de token')
+      table.string('name').nullable().comment('Nome da sessão')
+      table.string('hash').notNullable().comment('Hash do token')
+      table.text('abilities').notNullable().comment('Permissões do token')
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.timestamp('last_used_at').nullable()

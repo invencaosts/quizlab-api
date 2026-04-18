@@ -22,7 +22,9 @@ export default class WsProvider {
    */
   public async shutdown() {
     if (Ws.io) {
-      await Ws.io.close()
+      try {
+        await Ws.io.close()
+      } catch {}
     }
   }
 }
