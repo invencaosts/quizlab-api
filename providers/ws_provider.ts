@@ -13,7 +13,7 @@ export default class WsProvider {
    * The application has been started
    */
   public async start() {
-    const server = this.app.container.resolve('server')
+    const server = await this.app.container.make('server')
     Ws.boot(server.getNodeServer()!)
   }
 

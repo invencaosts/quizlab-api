@@ -1,11 +1,11 @@
 import { Server } from 'socket.io'
-import type { HttpServer } from '@adonisjs/core/types/http'
+import type { Server as HTTPServer } from 'node:http'
 
 class Ws {
   public io: Server | undefined
   private booted = false
 
-  public boot(httpServer: HttpServer) {
+  public boot(httpServer: HTTPServer) {
     if (this.booted) {
       return
     }
