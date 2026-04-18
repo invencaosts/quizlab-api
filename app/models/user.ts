@@ -3,14 +3,19 @@ import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
-import { hasMany } from '@adonisjs/lucid/orm'
+import { column, hasMany } from '@adonisjs/lucid/orm'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 import Quiz from '#models/quiz'
 import Session from '#models/session'
 import Participant from '#models/participant'
 
-export default class User extends compose(UserSchema, withAuthFinder(hash)) {
+export default class User extends compose(UserSchema, withAuthFinder(() => hash.use('argon2'))) {
   static accessTokens = DbAccessTokensProvider.forModel(User)
+  
+  @column()
+  declare fullName: string | null
+
+
 
   @hasMany(() => Quiz)
   declare quizzes: HasMany<typeof Quiz>

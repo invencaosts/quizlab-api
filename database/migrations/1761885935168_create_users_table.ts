@@ -14,6 +14,7 @@ export default class extends BaseSchema {
         .comment('Identificador único do usuário')
 
       table.string('email', 254).notNullable().unique().comment('E-mail institucional')
+      table.string('full_name').nullable().comment('Nome completo do usuário')
       table.string('password').notNullable().comment('Hash da senha')
       table.string('cpf').notNullable().unique().comment('Documento CPF')
       table.string('registration').notNullable().unique().comment('Matrícula acadêmica (ex: SUAP)')

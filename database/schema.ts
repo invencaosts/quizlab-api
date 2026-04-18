@@ -183,7 +183,7 @@ export class SubjectSchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['campus', 'course', 'cpf', 'createdAt', 'email', 'id', 'password', 'registration', 'role', 'updatedAt'] as const
+  static $columns = ['campus', 'course', 'cpf', 'createdAt', 'email', 'fullName', 'id', 'password', 'registration', 'role', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column()
   declare campus: string
@@ -195,6 +195,8 @@ export class UserSchema extends BaseModel {
   declare createdAt: DateTime
   @column()
   declare email: string
+  @column()
+  declare fullName: string | null
   @column({ isPrimary: true })
   declare id: string
   @column({ serializeAs: null })
