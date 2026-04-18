@@ -30,6 +30,78 @@ const routes = {
     tokens: [{"old":"/api/v1/account/profile","type":0,"val":"api","end":""},{"old":"/api/v1/account/profile","type":0,"val":"v1","end":""},{"old":"/api/v1/account/profile","type":0,"val":"account","end":""},{"old":"/api/v1/account/profile","type":0,"val":"profile","end":""}],
     types: placeholder as Registry['profile.profile.show']['types'],
   },
+  'subjects.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/subjects',
+    tokens: [{"old":"/api/v1/subjects","type":0,"val":"api","end":""},{"old":"/api/v1/subjects","type":0,"val":"v1","end":""},{"old":"/api/v1/subjects","type":0,"val":"subjects","end":""}],
+    types: placeholder as Registry['subjects.index']['types'],
+  },
+  'disciplines.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/disciplines',
+    tokens: [{"old":"/api/v1/disciplines","type":0,"val":"api","end":""},{"old":"/api/v1/disciplines","type":0,"val":"v1","end":""},{"old":"/api/v1/disciplines","type":0,"val":"disciplines","end":""}],
+    types: placeholder as Registry['disciplines.index']['types'],
+  },
+  'quizzes.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/quizzes',
+    tokens: [{"old":"/api/v1/quizzes","type":0,"val":"api","end":""},{"old":"/api/v1/quizzes","type":0,"val":"v1","end":""},{"old":"/api/v1/quizzes","type":0,"val":"quizzes","end":""}],
+    types: placeholder as Registry['quizzes.index']['types'],
+  },
+  'quizzes.create': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/quizzes/create',
+    tokens: [{"old":"/api/v1/quizzes/create","type":0,"val":"api","end":""},{"old":"/api/v1/quizzes/create","type":0,"val":"v1","end":""},{"old":"/api/v1/quizzes/create","type":0,"val":"quizzes","end":""},{"old":"/api/v1/quizzes/create","type":0,"val":"create","end":""}],
+    types: placeholder as Registry['quizzes.create']['types'],
+  },
+  'quizzes.store': {
+    methods: ["POST"],
+    pattern: '/api/v1/quizzes',
+    tokens: [{"old":"/api/v1/quizzes","type":0,"val":"api","end":""},{"old":"/api/v1/quizzes","type":0,"val":"v1","end":""},{"old":"/api/v1/quizzes","type":0,"val":"quizzes","end":""}],
+    types: placeholder as Registry['quizzes.store']['types'],
+  },
+  'quizzes.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/quizzes/:id',
+    tokens: [{"old":"/api/v1/quizzes/:id","type":0,"val":"api","end":""},{"old":"/api/v1/quizzes/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/quizzes/:id","type":0,"val":"quizzes","end":""},{"old":"/api/v1/quizzes/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['quizzes.show']['types'],
+  },
+  'quizzes.edit': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/quizzes/:id/edit',
+    tokens: [{"old":"/api/v1/quizzes/:id/edit","type":0,"val":"api","end":""},{"old":"/api/v1/quizzes/:id/edit","type":0,"val":"v1","end":""},{"old":"/api/v1/quizzes/:id/edit","type":0,"val":"quizzes","end":""},{"old":"/api/v1/quizzes/:id/edit","type":1,"val":"id","end":""},{"old":"/api/v1/quizzes/:id/edit","type":0,"val":"edit","end":""}],
+    types: placeholder as Registry['quizzes.edit']['types'],
+  },
+  'quizzes.update': {
+    methods: ["PUT","PATCH"],
+    pattern: '/api/v1/quizzes/:id',
+    tokens: [{"old":"/api/v1/quizzes/:id","type":0,"val":"api","end":""},{"old":"/api/v1/quizzes/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/quizzes/:id","type":0,"val":"quizzes","end":""},{"old":"/api/v1/quizzes/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['quizzes.update']['types'],
+  },
+  'quizzes.destroy': {
+    methods: ["DELETE"],
+    pattern: '/api/v1/quizzes/:id',
+    tokens: [{"old":"/api/v1/quizzes/:id","type":0,"val":"api","end":""},{"old":"/api/v1/quizzes/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/quizzes/:id","type":0,"val":"quizzes","end":""},{"old":"/api/v1/quizzes/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['quizzes.destroy']['types'],
+  },
+  'sessions.store': {
+    methods: ["POST"],
+    pattern: '/api/v1/sessions',
+    tokens: [{"old":"/api/v1/sessions","type":0,"val":"api","end":""},{"old":"/api/v1/sessions","type":0,"val":"v1","end":""},{"old":"/api/v1/sessions","type":0,"val":"sessions","end":""}],
+    types: placeholder as Registry['sessions.store']['types'],
+  },
+  'sessions.join': {
+    methods: ["POST"],
+    pattern: '/api/v1/sessions/join',
+    tokens: [{"old":"/api/v1/sessions/join","type":0,"val":"api","end":""},{"old":"/api/v1/sessions/join","type":0,"val":"v1","end":""},{"old":"/api/v1/sessions/join","type":0,"val":"sessions","end":""},{"old":"/api/v1/sessions/join","type":0,"val":"join","end":""}],
+    types: placeholder as Registry['sessions.join']['types'],
+  },
+  'sessions.lobby': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/sessions/lobby',
+    tokens: [{"old":"/api/v1/sessions/lobby","type":0,"val":"api","end":""},{"old":"/api/v1/sessions/lobby","type":0,"val":"v1","end":""},{"old":"/api/v1/sessions/lobby","type":0,"val":"sessions","end":""},{"old":"/api/v1/sessions/lobby","type":0,"val":"lobby","end":""}],
+    types: placeholder as Registry['sessions.lobby']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

@@ -16,4 +16,24 @@ export interface ApiDefinition {
       show: typeof routes['profile.profile.show']
     }
   }
+  subjects: {
+    index: typeof routes['subjects.index']
+  }
+  disciplines: {
+    index: typeof routes['disciplines.index']
+  }
+  quizzes: {
+    index: typeof routes['quizzes.index']
+    create: typeof routes['quizzes.create']
+    store: typeof routes['quizzes.store']
+    show: typeof routes['quizzes.show']
+    edit: typeof routes['quizzes.edit']
+    update: typeof routes['quizzes.update']
+    destroy: typeof routes['quizzes.destroy']
+  }
+  sessions: {
+    store: typeof routes['sessions.store']
+    join: typeof routes['sessions.join']
+    lobby: typeof routes['sessions.lobby']
+  }
 }
