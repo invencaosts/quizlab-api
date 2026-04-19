@@ -16,6 +16,8 @@ const ProfileController = () => import('#controllers/profile_controller')
 const SubjectsController = () => import('#controllers/subjects_controller')
 const DisciplinesController = () => import('#controllers/disciplines_controller')
 const QuizzesController = () => import('#controllers/quizzes_controller')
+const CampusesController = () => import('#controllers/campuses_controller')
+const GetCoursesController = () => import('#controllers/get_courses_controller')
 const SessionsController = () => import('#controllers/sessions_controller')
 
 router.get('/', () => {
@@ -46,6 +48,8 @@ router
     // CRUD Acadêmico
     router.get('subjects', [SubjectsController, 'index'])
     router.get('disciplines', [DisciplinesController, 'index'])
+    router.get('campuses', [CampusesController, 'index'])
+    router.get('courses', [GetCoursesController, 'index'])
     router.resource('quizzes', QuizzesController).use('*', middleware.auth())
 
     // Motor de Jogo / Sessões
