@@ -5,19 +5,20 @@ import UserTransformer from '#transformers/user_transformer'
 import hash from '@adonisjs/core/services/hash'
 
 export default class AccessTokenController {
-  async store({ request, serialize }: HttpContext) {
-    const { email, password } = await request.validateUsing(loginValidator)
+  async store(ctx: HttpContext) {
+    const { email, password } = await ctx.request.validateUsing(loginValidator)
 
     const user = await User.verifyCredentials(email, password)
 
-    if (hash.needsReHash(user.password)) {
-      user.password = password
+    // Upgrade hash if needed
+    if (user.password && hash.needsReHash(user.password)) {
+      user.password = await hash.make(password)
       await user.save()
     }
 
     const token = await User.accessTokens.create(user)
 
-    return serialize({
+    return ctx.serialize({
       user: UserTransformer.transform(user),
       token: token.value!.release(),
     })
