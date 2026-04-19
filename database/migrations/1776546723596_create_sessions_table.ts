@@ -4,6 +4,8 @@ export default class extends BaseSchema {
   protected tableName = 'sessions'
 
   async up() {
+    await this.raw('DROP TYPE IF EXISTS "session_status" CASCADE')
+
     this.schema.createTable(this.tableName, (table) => {
       table
         .uuid('id')
@@ -27,7 +29,7 @@ export default class extends BaseSchema {
         .onDelete('CASCADE')
         .comment('Professor host (quem abriu a sala)')
 
-      table.string('pin').unique().nullable().comment('Código PIN para os alunos entrarem na sala')
+      table.string('pin', 8).unique().nullable().comment('Código PIN para os alunos entrarem na sala')
 
       table.enum('status', ['WAITING', 'ACTIVE', 'FINISHED'], {
         useNative: true,

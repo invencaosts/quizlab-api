@@ -19,7 +19,7 @@ export default class extends BaseSchema {
         .onDelete('CASCADE')
         .comment('ID da matéria (área de conhecimento) à qual a disciplina pertence')
 
-      table.string('name').notNullable().comment('Nome da disciplina (ex: Programação Web I)')
+      table.string('name', 150).notNullable().comment('Nome da disciplina (ex: Programação Web I)')
 
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()

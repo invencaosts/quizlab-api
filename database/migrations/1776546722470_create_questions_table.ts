@@ -4,6 +4,8 @@ export default class extends BaseSchema {
   protected tableName = 'questions'
 
   async up() {
+    await this.raw('DROP TYPE IF EXISTS "question_type" CASCADE')
+
     this.schema.createTable(this.tableName, (table) => {
       table
         .uuid('id')
@@ -19,7 +21,7 @@ export default class extends BaseSchema {
         .onDelete('CASCADE')
         .comment('Quiz ao qual a pergunta pertence')
 
-      table.string('text').notNullable().comment('O texto/enunciado da questão')
+      table.string('text', 500).notNullable().comment('O texto/enunciado da questão')
       table.integer('time_limit_seconds').notNullable().comment('Tempo limite em segundos para resposta')
 
       table.enum('type', ['SINGLE_CHOICE', 'MULTIPLE_CHOICE'], {

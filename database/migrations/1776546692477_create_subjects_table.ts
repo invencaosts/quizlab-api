@@ -11,7 +11,7 @@ export default class extends BaseSchema {
         .defaultTo(this.db.rawQuery('uuid_generate_v4()').knexQuery)
         .comment('Identificador único da matéria/área de conhecimento')
 
-      table.string('name').notNullable().comment('Nome da matéria (ex: Informática, Matemática)')
+      table.string('name', 100).notNullable().comment('Nome da matéria (ex: Informática, Matemática)')
 
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()

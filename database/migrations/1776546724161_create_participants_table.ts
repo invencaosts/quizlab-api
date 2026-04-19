@@ -27,7 +27,7 @@ export default class extends BaseSchema {
         .onDelete('SET NULL')
         .comment('Caso o aluno esteja logado, vincula a conta dele aqui')
 
-      table.string('nickname').notNullable().comment('Apelido utilizado para jogar (logado ou anônimo)')
+      table.string('nickname', 50).notNullable().comment('Apelido utilizado para jogar (logado ou anônimo)')
       table.integer('total_score').notNullable().defaultTo(0).comment('Pontuação acumulada na sessão')
 
       table.timestamp('created_at').notNullable()

@@ -19,7 +19,7 @@ export default class extends BaseSchema {
         .onDelete('CASCADE')
         .comment('Id da questão que esta alternativa compõe')
 
-      table.string('text').notNullable().comment('Texto contendo a resposta')
+      table.string('text', 500).notNullable().comment('Texto contendo a resposta')
       table.boolean('is_correct').notNullable().comment('Se a resposta desta alternativa é correta')
 
       table.timestamp('created_at').notNullable()

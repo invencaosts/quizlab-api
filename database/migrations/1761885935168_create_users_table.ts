@@ -5,6 +5,7 @@ export default class extends BaseSchema {
 
   async up() {
     await this.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
+    await this.raw('DROP TYPE IF EXISTS "user_role" CASCADE')
 
     this.schema.createTable(this.tableName, (table) => {
       table
@@ -14,12 +15,12 @@ export default class extends BaseSchema {
         .comment('Identificador único do usuário')
 
       table.string('email', 254).notNullable().unique().comment('E-mail institucional')
-      table.string('full_name').nullable().comment('Nome completo do usuário')
-      table.string('password').notNullable().comment('Hash da senha')
-      table.string('cpf').notNullable().unique().comment('Documento CPF')
-      table.string('registration').notNullable().unique().comment('Matrícula acadêmica (ex: SUAP)')
-      table.string('campus').notNullable().comment('Campus do IFS (ex: Aracaju, Lagarto)')
-      table.string('course').nullable().comment('Curso ao qual o aluno/professor está vinculado')
+      table.string('full_name', 100).nullable().comment('Nome completo do usuário')
+      table.string('password', 255).notNullable().comment('Hash da senha')
+      table.string('cpf', 14).notNullable().unique().comment('Documento CPF')
+      table.string('registration', 10).notNullable().unique().comment('Matrícula acadêmica (ex: SUAP)')
+      table.string('campus', 100).notNullable().comment('Campus do IFS (ex: Aracaju, Lagarto)')
+      table.string('course', 150).nullable().comment('Curso ao qual o aluno/professor está vinculado')
       
       table.enum('role', ['PROFESSOR', 'STUDENT', 'ADMIN'], {
         useNative: true,

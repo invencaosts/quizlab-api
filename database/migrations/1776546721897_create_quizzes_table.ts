@@ -27,7 +27,7 @@ export default class extends BaseSchema {
         .onDelete('CASCADE')
         .comment('Disciplina a qual o quiz pertence')
 
-      table.string('title').notNullable().comment('Título ou nome do quiz')
+      table.string('title', 200).notNullable().comment('Título ou nome do quiz')
       table.text('description').nullable().comment('Descrição opcional detalhada do quiz')
       table.boolean('is_public').defaultTo(false).notNullable().comment('Se o quiz está visível a todos')
 

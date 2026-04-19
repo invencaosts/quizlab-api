@@ -49,6 +49,38 @@ export class AuthAccessTokenSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class CampusSchema extends BaseModel {
+  static $columns = ['city', 'createdAt', 'id', 'name', 'state', 'updatedAt'] as const
+  $columns = CampusSchema.$columns
+  @column()
+  declare city: string | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare name: string | null
+  @column()
+  declare state: string | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class CourseSchema extends BaseModel {
+  static $columns = ['createdAt', 'description', 'id', 'name', 'updatedAt'] as const
+  $columns = CourseSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare description: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare name: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class DisciplineSchema extends BaseModel {
   static $columns = ['createdAt', 'id', 'isApproved', 'name', 'subjectId', 'updatedAt'] as const
   $columns = DisciplineSchema.$columns
@@ -183,28 +215,26 @@ export class SubjectSchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['campus', 'course', 'cpf', 'createdAt', 'email', 'fullName', 'id', 'password', 'registration', 'role', 'updatedAt'] as const
+  static $columns = ['campusId', 'courseId', 'cpf', 'createdAt', 'email', 'fullName', 'id', 'password', 'registration', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column()
-  declare campus: string
+  declare campusId: string | null
   @column()
-  declare course: string | null
+  declare courseId: string | null
   @column()
-  declare cpf: string
+  declare cpf: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column()
-  declare email: string
+  declare email: string | null
   @column()
   declare fullName: string | null
   @column({ isPrimary: true })
   declare id: string
   @column({ serializeAs: null })
-  declare password: string
+  declare password: string | null
   @column()
-  declare registration: string
-  @column()
-  declare role: any
+  declare registration: string | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
