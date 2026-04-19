@@ -42,6 +42,18 @@ const routes = {
     tokens: [{"old":"/api/v1/disciplines","type":0,"val":"api","end":""},{"old":"/api/v1/disciplines","type":0,"val":"v1","end":""},{"old":"/api/v1/disciplines","type":0,"val":"disciplines","end":""}],
     types: placeholder as Registry['disciplines.index']['types'],
   },
+  'campuses.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/campuses',
+    tokens: [{"old":"/api/v1/campuses","type":0,"val":"api","end":""},{"old":"/api/v1/campuses","type":0,"val":"v1","end":""},{"old":"/api/v1/campuses","type":0,"val":"campuses","end":""}],
+    types: placeholder as Registry['campuses.index']['types'],
+  },
+  'get_courses.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/courses',
+    tokens: [{"old":"/api/v1/courses","type":0,"val":"api","end":""},{"old":"/api/v1/courses","type":0,"val":"v1","end":""},{"old":"/api/v1/courses","type":0,"val":"courses","end":""}],
+    types: placeholder as Registry['get_courses.index']['types'],
+  },
   'quizzes.index': {
     methods: ["GET","HEAD"],
     pattern: '/api/v1/quizzes',

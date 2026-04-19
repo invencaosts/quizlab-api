@@ -22,6 +22,12 @@ export interface ApiDefinition {
   disciplines: {
     index: typeof routes['disciplines.index']
   }
+  campuses: {
+    index: typeof routes['campuses.index']
+  }
+  getCourses: {
+    index: typeof routes['get_courses.index']
+  }
   quizzes: {
     index: typeof routes['quizzes.index']
     create: typeof routes['quizzes.create']

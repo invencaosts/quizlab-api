@@ -5,7 +5,9 @@
 
 export const controllers = {
   AccessToken: () => import('#controllers/access_token_controller'),
+  Campuses: () => import('#controllers/campuses_controller'),
   Disciplines: () => import('#controllers/disciplines_controller'),
+  GetCourses: () => import('#controllers/get_courses_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),
   Profile: () => import('#controllers/profile_controller'),
   Quizzes: () => import('#controllers/quizzes_controller'),

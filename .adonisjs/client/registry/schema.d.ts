@@ -79,6 +79,30 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/disciplines_controller').default['index']>>>
     }
   }
+  'campuses.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/campuses'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/campuses_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/campuses_controller').default['index']>>>
+    }
+  }
+  'get_courses.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/courses'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/get_courses_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/get_courses_controller').default['index']>>>
+    }
+  }
   'quizzes.index': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/quizzes'

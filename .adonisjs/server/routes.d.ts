@@ -10,6 +10,8 @@ export type ScannedRoutes = {
     'profile.profile.show': { paramsTuple?: []; params?: {} }
     'subjects.index': { paramsTuple?: []; params?: {} }
     'disciplines.index': { paramsTuple?: []; params?: {} }
+    'campuses.index': { paramsTuple?: []; params?: {} }
+    'get_courses.index': { paramsTuple?: []; params?: {} }
     'quizzes.index': { paramsTuple?: []; params?: {} }
     'quizzes.create': { paramsTuple?: []; params?: {} }
     'quizzes.store': { paramsTuple?: []; params?: {} }
@@ -25,6 +27,8 @@ export type ScannedRoutes = {
     'profile.profile.show': { paramsTuple?: []; params?: {} }
     'subjects.index': { paramsTuple?: []; params?: {} }
     'disciplines.index': { paramsTuple?: []; params?: {} }
+    'campuses.index': { paramsTuple?: []; params?: {} }
+    'get_courses.index': { paramsTuple?: []; params?: {} }
     'quizzes.index': { paramsTuple?: []; params?: {} }
     'quizzes.create': { paramsTuple?: []; params?: {} }
     'quizzes.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -35,6 +39,8 @@ export type ScannedRoutes = {
     'profile.profile.show': { paramsTuple?: []; params?: {} }
     'subjects.index': { paramsTuple?: []; params?: {} }
     'disciplines.index': { paramsTuple?: []; params?: {} }
+    'campuses.index': { paramsTuple?: []; params?: {} }
+    'get_courses.index': { paramsTuple?: []; params?: {} }
     'quizzes.index': { paramsTuple?: []; params?: {} }
     'quizzes.create': { paramsTuple?: []; params?: {} }
     'quizzes.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
