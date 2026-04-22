@@ -30,6 +30,12 @@ const routes = {
     tokens: [{"old":"/api/v1/profile","type":0,"val":"api","end":""},{"old":"/api/v1/profile","type":0,"val":"v1","end":""},{"old":"/api/v1/profile","type":0,"val":"profile","end":""}],
     types: placeholder as Registry['profile.show']['types'],
   },
+  'profile.update': {
+    methods: ["PUT"],
+    pattern: '/api/v1/profile',
+    tokens: [{"old":"/api/v1/profile","type":0,"val":"api","end":""},{"old":"/api/v1/profile","type":0,"val":"v1","end":""},{"old":"/api/v1/profile","type":0,"val":"profile","end":""}],
+    types: placeholder as Registry['profile.update']['types'],
+  },
   'subjects.index': {
     methods: ["GET","HEAD"],
     pattern: '/api/v1/subjects',

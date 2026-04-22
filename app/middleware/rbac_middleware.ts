@@ -13,7 +13,7 @@ export default class RbacMiddleware {
     }
 
     // Carrega a role para saber o slug
-    await user.load('role')
+    await user.load((loader) => loader.load('role'))
     
     // ADMIN tem passe livre total
     if (user.role?.slug === 'ADMIN') {

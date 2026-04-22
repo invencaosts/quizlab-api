@@ -8,6 +8,7 @@ export type ScannedRoutes = {
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
     'profile.show': { paramsTuple?: []; params?: {} }
+    'profile.update': { paramsTuple?: []; params?: {} }
     'subjects.index': { paramsTuple?: []; params?: {} }
     'disciplines.index': { paramsTuple?: []; params?: {} }
     'campuses.index': { paramsTuple?: []; params?: {} }
@@ -56,6 +57,7 @@ export type ScannedRoutes = {
     'sessions.join': { paramsTuple?: []; params?: {} }
   }
   PUT: {
+    'profile.update': { paramsTuple?: []; params?: {} }
     'quizzes.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   PATCH: {

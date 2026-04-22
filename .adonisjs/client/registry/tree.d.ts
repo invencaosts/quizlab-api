@@ -13,6 +13,7 @@ export interface ApiDefinition {
   }
   profile: {
     show: typeof routes['profile.show']
+    update: typeof routes['profile.update']
   }
   subjects: {
     index: typeof routes['subjects.index']
