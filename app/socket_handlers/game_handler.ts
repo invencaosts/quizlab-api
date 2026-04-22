@@ -5,6 +5,7 @@ import Participant from '#models/participant'
 import Alternative from '#models/alternative'
 import GameService from '#services/game_service'
 import ParticipantAnswer from '#models/participant_answer'
+import db from '@adonisjs/lucid/services/db'
 
 const gameService = new GameService()
 
@@ -63,25 +64,31 @@ export default class GameHandler {
     const alternative = await Alternative.findOrFail(data.alternativeId)
     const score = gameService.calculateScore(alternative.isCorrect, data.timeTakenMs, data.timeLimitSeconds)
 
-    // Log answer
-    await ParticipantAnswer.create({
-      participantId: data.participantId,
-      questionId: data.questionId,
-      alternativeId: data.alternativeId,
-      timeTakenMs: data.timeTakenMs,
-      pointsEarned: score
+    await db.transaction(async (trx) => {
+      await ParticipantAnswer.create(
+        {
+          participantId: data.participantId,
+          questionId: data.questionId,
+          alternativeId: data.alternativeId,
+          timeTakenMs: data.timeTakenMs,
+          pointsEarned: score,
+        },
+        { client: trx }
+      )
+
+      await db
+        .from('participants')
+        .where('id', data.participantId)
+        .increment('total_score', score)
+        .useTransaction(trx)
     })
 
-    // Update participant total score
     const participant = await Participant.findOrFail(data.participantId)
-    participant.totalScore += score
-    await participant.save()
 
-    // Notify individual of their result
     socket.emit('answer:result', {
       isCorrect: alternative.isCorrect,
       pointsEarned: score,
-      newTotal: participant.totalScore
+      newTotal: participant.totalScore,
     })
   }
 }
