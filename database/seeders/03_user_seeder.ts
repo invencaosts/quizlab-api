@@ -2,17 +2,29 @@ import { BaseSeeder } from '@adonisjs/lucid/seeders'
 import User from '#models/user'
 import Campus from '#models/campus'
 import Course from '#models/course'
+import Role from '#models/role'
 
 export default class extends BaseSeeder {
   async run() {
-    // Buscar ou criar campi, cursos e roles
     const aracaju = await Campus.firstOrCreate({ name: 'Aracaju' }, { city: 'Aracaju', state: 'SE' })
     const lagarto = await Campus.firstOrCreate({ name: 'Lagarto' }, { city: 'Lagarto', state: 'SE' })
-    
+
     const internetCourse = await Course.firstOrCreate({ name: 'Sistemas para Internet' })
     const networksCourse = await Course.firstOrCreate({ name: 'Redes de Computadores' })
 
-    // Super Admin do sistema
+    const adminRole = await Role.firstOrCreate(
+      { slug: 'ADMIN' },
+      { name: 'Administrador', description: 'Acesso total ao sistema' }
+    )
+    const profRole = await Role.firstOrCreate(
+      { slug: 'PROFESSOR' },
+      { name: 'Professor', description: 'Criação e gestão de quizzes' }
+    )
+    const studentRole = await Role.firstOrCreate(
+      { slug: 'STUDENT' },
+      { name: 'Estudante', description: 'Participação em quizzes' }
+    )
+
     await User.updateOrCreate(
       { email: 'admin@quizlab.com' },
       {
@@ -22,11 +34,10 @@ export default class extends BaseSeeder {
         registration: '0000000000',
         campusId: aracaju.id,
         courseId: internetCourse.id,
-        role: 'A',
+        roleId: adminRole.id,
       }
     )
 
-    // Professor de Teste
     await User.updateOrCreate(
       { email: 'professor@ifs.edu.br' },
       {
@@ -36,11 +47,10 @@ export default class extends BaseSeeder {
         registration: '1111111111',
         campusId: aracaju.id,
         courseId: internetCourse.id,
-        role: 'P',
+        roleId: profRole.id,
       }
     )
 
-    // Aluno de Teste
     await User.updateOrCreate(
       { email: 'aluno@ifs.edu.br' },
       {
@@ -50,7 +60,7 @@ export default class extends BaseSeeder {
         registration: '2222222222',
         campusId: lagarto.id,
         courseId: networksCourse.id,
-        role: 'S',
+        roleId: studentRole.id,
       }
     )
   }
