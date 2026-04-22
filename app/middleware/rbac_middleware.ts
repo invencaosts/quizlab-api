@@ -27,23 +27,25 @@ export default class RbacMiddleware {
     // Procura no banco de dados se essa rota está mapeada em um menu
     // Usamos o início da URL para capturar sub-rotas (ex: /quizzes/123)
     const menu = await Menu.query()
-      .where('href', '!=', '/') // Evita bloquear a home se não for intencional
+      .where('href', '!=', '/')
       .whereRaw('? LIKE href || \'%\'', [url])
       .first()
 
-    // Se a rota está mapeada em um menu, verificamos se o usuário tem permissão
-    if (menu) {
-      const hasPermission = await menu.related('roles')
-        .query()
-        .where('roles.id', user.roleId)
-        .first()
+    // Rota protegida pelo RBAC mas não registrada nos menus: nega por padrão
+    if (!menu) {
+      return ctx.response.forbidden({
+        message: 'Rota não registrada no sistema de permissões.',
+        code: 'E_RBAC_UNREGISTERED_ROUTE',
+      })
+    }
 
-      if (!hasPermission) {
-        return ctx.response.forbidden({ 
-          message: 'Você não tem permissão para acessar este recurso.',
-          code: 'E_RBAC_FORBIDDEN'
-        })
-      }
+    const hasPermission = await menu.related('roles').query().where('roles.id', user.roleId).first()
+
+    if (!hasPermission) {
+      return ctx.response.forbidden({
+        message: 'Você não tem permissão para acessar este recurso.',
+        code: 'E_RBAC_FORBIDDEN',
+      })
     }
 
     return next()
