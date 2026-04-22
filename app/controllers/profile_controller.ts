@@ -8,9 +8,9 @@ export default class ProfileController {
     await user.load((loader) => {
       loader.load('campus')
       loader.load('course')
-      loader.load('role', (roleLoader) => {
-        roleLoader.load('menus', (menuLoader) => {
-          menuLoader.load('roles')
+      loader.load('role', (roleQuery) => {
+        roleQuery.preload('menus', (menuQuery) => {
+          menuQuery.preload('roles')
         })
       })
     })
@@ -47,9 +47,9 @@ export default class ProfileController {
     await user.load((loader) => {
       loader.load('campus')
       loader.load('course')
-      loader.load('role', (roleLoader) => {
-        roleLoader.load('menus', (menuLoader) => {
-          menuLoader.load('roles')
+      loader.load('role', (roleQuery) => {
+        roleQuery.preload('menus', (menuQuery) => {
+          menuQuery.preload('roles')
         })
       })
     })
