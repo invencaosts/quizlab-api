@@ -8,6 +8,7 @@ export default class ProfileController {
     await user.load((loader) => {
       loader.load('campus')
       loader.load('course')
+      loader.load('role', (r) => r.load('menus', (m) => m.load('roles')))
     })
     return ctx.serialize(UserTransformer.transform(user))
   }
@@ -42,6 +43,7 @@ export default class ProfileController {
     await user.load((loader) => {
       loader.load('campus')
       loader.load('course')
+      loader.load('role', (r) => r.load('menus', (m) => m.load('roles')))
     })
 
     return ctx.serialize({

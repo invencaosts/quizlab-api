@@ -98,6 +98,42 @@ export class DisciplineSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class MenuRoleSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'menuId', 'roleId', 'updatedAt'] as const
+  $columns = MenuRoleSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare menuId: string | null
+  @column()
+  declare roleId: string | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class MenuSchema extends BaseModel {
+  static $columns = ['createdAt', 'href', 'icon', 'id', 'isActive', 'label', 'order', 'updatedAt'] as const
+  $columns = MenuSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare href: string
+  @column()
+  declare icon: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare isActive: boolean | null
+  @column()
+  declare label: string
+  @column()
+  declare order: number | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class ParticipantAnswerSchema extends BaseModel {
   static $columns = ['alternativeId', 'createdAt', 'id', 'participantId', 'pointsEarned', 'questionId', 'timeTakenMs', 'updatedAt'] as const
   $columns = ParticipantAnswerSchema.$columns
@@ -178,6 +214,23 @@ export class QuizSchema extends BaseModel {
   declare userId: string
 }
 
+export class RoleSchema extends BaseModel {
+  static $columns = ['createdAt', 'description', 'id', 'name', 'slug', 'updatedAt'] as const
+  $columns = RoleSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare description: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare name: string
+  @column()
+  declare slug: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class SessionSchema extends BaseModel {
   static $columns = ['createdAt', 'hostId', 'id', 'isVisibleInLobby', 'pin', 'quizId', 'status', 'updatedAt'] as const
   $columns = SessionSchema.$columns
@@ -215,7 +268,7 @@ export class SubjectSchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['campusId', 'courseId', 'cpf', 'createdAt', 'email', 'fullName', 'id', 'password', 'registration', 'role', 'updatedAt'] as const
+  static $columns = ['campusId', 'courseId', 'cpf', 'createdAt', 'email', 'fullName', 'id', 'password', 'registration', 'roleId', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column()
   declare campusId: string
@@ -236,7 +289,7 @@ export class UserSchema extends BaseModel {
   @column()
   declare registration: string
   @column()
-  declare role: "P" | "S" | "A"
+  declare roleId: string | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
