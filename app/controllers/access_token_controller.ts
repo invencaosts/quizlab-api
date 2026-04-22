@@ -10,18 +10,28 @@ export default class AccessTokenController {
 
     const user = await User.verifyCredentials(email, password)
 
-    // Upgrade hash if needed
+    // Upgrade hash if needed - set plain text so beforeSave hook re-hashes correctly
     if (user.password && hash.needsReHash(user.password)) {
-      user.password = await hash.make(password)
+      user.password = password
       await user.save()
     }
 
+    await user.load((loader) => {
+      loader.load('campus')
+      loader.load('course')
+      loader.load('role', (roleQuery) => {
+        roleQuery.preload('menus', (menuQuery) => {
+          menuQuery.preload('roles')
+        })
+      })
+    })
+
     const token = await User.accessTokens.create(user)
 
-    return ctx.serialize({
+    return {
       user: UserTransformer.transform(user),
       token: token.value!.release(),
-    })
+    }
   }
 
   async destroy({ auth }: HttpContext) {

@@ -1,17 +1,14 @@
 import type User from '#models/user'
-import { BaseTransformer } from '@adonisjs/core/transformers'
 
-export default class UserTransformer extends BaseTransformer<User> {
-  toObject() {
+export default class UserTransformer {
+  static transform(user: User) {
     return {
-      id: this.resource.id,
-      fullName: this.resource.fullName,
-      email: this.resource.email,
-      // Se tiver o relacionamento carregado usa o slug, senão STUDENT por padrão
-      role: this.resource.role?.slug || 'STUDENT',
-      // Lista de menus permitidos, ordenados, com as roles permitidas informadas
-      menus: this.resource.role?.menus ? 
-        this.resource.role.menus
+      id: user.id,
+      fullName: user.fullName,
+      email: user.email,
+      role: user.role?.slug || 'STUDENT',
+      menus: user.role?.menus ? 
+        user.role.menus
           .filter(m => m.isActive)
           .sort((a, b) => a.order - b.order)
           .map(m => ({
@@ -20,19 +17,19 @@ export default class UserTransformer extends BaseTransformer<User> {
             icon: m.icon,
             roles: m.roles?.map(r => r.slug) || []
           })) : [],
-      cpf: this.resource.cpf,
-      registration: this.resource.registration,
-      initials: this.resource.initials,
-      campus: this.resource.campus ? {
-        id: this.resource.campus.id,
-        name: this.resource.campus.name
+      cpf: user.cpf,
+      registration: user.registration,
+      initials: user.initials,
+      campus: user.campus ? {
+        id: user.campus.id,
+        name: user.campus.name
       } : null,
-      course: this.resource.course ? {
-        id: this.resource.course.id,
-        name: this.resource.course.name
+      course: user.course ? {
+        id: user.course.id,
+        name: user.course.name
       } : null,
-      createdAt: this.resource.createdAt,
-      updatedAt: this.resource.updatedAt,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
     }
   }
 }

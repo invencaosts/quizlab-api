@@ -14,7 +14,7 @@ export default class ProfileController {
         })
       })
     })
-    return ctx.serialize(UserTransformer.transform(user))
+    return UserTransformer.transform(user)
   }
 
   async update(ctx: HttpContext) {
@@ -54,9 +54,9 @@ export default class ProfileController {
       })
     })
 
-    return ctx.serialize({
+    return {
       message: 'Perfil atualizado com sucesso',
       user: UserTransformer.transform(user)
-    })
+    }
   }
 }

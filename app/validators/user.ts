@@ -48,7 +48,9 @@ export const signupValidator = vine.compile(
  * Validator to use before validating user credentials
  * during login
  */
-export const loginValidator = vine.create({
-  email: email(),
-  password: vine.string(),
-})
+export const loginValidator = vine.compile(
+  vine.object({
+    email: email(),
+    password: vine.string(),
+  })
+)

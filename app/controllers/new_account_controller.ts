@@ -13,10 +13,10 @@ export default class NewAccountController {
 
     const token = await User.accessTokens.create(user)
 
-    return ctx.serialize({
+    return {
       user: UserTransformer.transform(user),
       token: token.value!.release(),
-    })
+    }
   }
 }
 
