@@ -3,13 +3,14 @@ import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
-import { beforeSave, belongsTo, hasMany } from '@adonisjs/lucid/orm'
+import { beforeSave, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import Campus from '#models/campus'
 import Course from '#models/course'
 import Quiz from '#models/quiz'
 import Session from '#models/session'
 import Participant from '#models/participant'
+import Role from '#models/role'
 
 export default class User extends compose(
   UserSchema,
@@ -39,6 +40,12 @@ export default class User extends compose(
 
   @hasMany(() => Session, { foreignKey: 'hostId' })
   declare hostedSessions: HasMany<typeof Session>
+
+  @column()
+  declare roleId: string
+
+  @belongsTo(() => Role)
+  declare role: BelongsTo<typeof Role>
 
   @hasMany(() => Participant)
   declare participations: HasMany<typeof Participant>

@@ -45,10 +45,10 @@ router
     router.get('disciplines', [DisciplinesController, 'index'])
     router.get('campuses', [CampusesController, 'index'])
     router.get('courses', [GetCoursesController, 'index'])
-    router.resource('quizzes', QuizzesController).use('*', middleware.auth())
-
+    router.resource('quizzes', QuizzesController).use('*', [middleware.auth(), middleware.rbac()])
+    
     // Motor de Jogo / Sessões
-    router.post('sessions', [SessionsController, 'store']).use(middleware.auth())
+    router.post('sessions', [SessionsController, 'store']).use([middleware.auth(), middleware.rbac()])
     router.post('sessions/join', [SessionsController, 'join'])
     router.get('sessions/lobby', [SessionsController, 'lobby'])
   })
