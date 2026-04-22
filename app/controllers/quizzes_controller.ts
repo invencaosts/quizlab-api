@@ -10,8 +10,10 @@ export default class QuizzesController {
   async index({ auth }: HttpContext) {
     const user = auth.user!
     
-    // Lista os quizzes criados pelo professor conectado
-    const quizzes = await user.related('quizzes').query().preload('discipline')
+    // Simplificando para depuração
+    const quizzes = await user.related('quizzes').query()
+      .preload('discipline')
+      .orderBy('createdAt', 'desc')
     return quizzes
   }
 

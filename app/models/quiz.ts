@@ -1,5 +1,5 @@
 import { QuizSchema } from '#database/schema'
-import { belongsTo, hasMany } from '@adonisjs/lucid/orm'
+import { belongsTo, hasMany, computed } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import User from '#models/user'
 import Discipline from '#models/discipline'
@@ -14,4 +14,9 @@ export default class Quiz extends QuizSchema {
 
   @hasMany(() => Question)
   declare questions: HasMany<typeof Question>
+
+  @computed()
+  get questionsCount() {
+    return this.$extras.questions_count
+  }
 }
