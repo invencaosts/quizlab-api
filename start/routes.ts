@@ -38,6 +38,7 @@ router
 
     // Perfil
     router.get('profile', [ProfileController, 'show']).use(middleware.auth())
+    router.put('profile', [ProfileController, 'update']).use(middleware.auth())
 
     // CRUD Acadêmico
     router.get('subjects', [SubjectsController, 'index'])
