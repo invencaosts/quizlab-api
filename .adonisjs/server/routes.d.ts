@@ -7,7 +7,7 @@ export type ScannedRoutes = {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
-    'profile.profile.show': { paramsTuple?: []; params?: {} }
+    'profile.show': { paramsTuple?: []; params?: {} }
     'subjects.index': { paramsTuple?: []; params?: {} }
     'disciplines.index': { paramsTuple?: []; params?: {} }
     'campuses.index': { paramsTuple?: []; params?: {} }
@@ -24,7 +24,7 @@ export type ScannedRoutes = {
     'sessions.lobby': { paramsTuple?: []; params?: {} }
   }
   GET: {
-    'profile.profile.show': { paramsTuple?: []; params?: {} }
+    'profile.show': { paramsTuple?: []; params?: {} }
     'subjects.index': { paramsTuple?: []; params?: {} }
     'disciplines.index': { paramsTuple?: []; params?: {} }
     'campuses.index': { paramsTuple?: []; params?: {} }
@@ -36,7 +36,7 @@ export type ScannedRoutes = {
     'sessions.lobby': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
-    'profile.profile.show': { paramsTuple?: []; params?: {} }
+    'profile.show': { paramsTuple?: []; params?: {} }
     'subjects.index': { paramsTuple?: []; params?: {} }
     'disciplines.index': { paramsTuple?: []; params?: {} }
     'campuses.index': { paramsTuple?: []; params?: {} }

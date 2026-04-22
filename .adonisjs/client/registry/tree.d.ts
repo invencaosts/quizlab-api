@@ -12,9 +12,7 @@ export interface ApiDefinition {
     }
   }
   profile: {
-    profile: {
-      show: typeof routes['profile.profile.show']
-    }
+    show: typeof routes['profile.show']
   }
   subjects: {
     index: typeof routes['subjects.index']

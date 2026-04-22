@@ -22,6 +22,7 @@ export default class extends BaseSeeder {
         registration: '0000000000',
         campusId: aracaju.id,
         courseId: internetCourse.id,
+        role: 'A',
       }
     )
 
@@ -35,6 +36,7 @@ export default class extends BaseSeeder {
         registration: '1111111111',
         campusId: aracaju.id,
         courseId: internetCourse.id,
+        role: 'P',
       }
     )
 
@@ -48,6 +50,7 @@ export default class extends BaseSeeder {
         registration: '2222222222',
         campusId: lagarto.id,
         courseId: networksCourse.id,
+        role: 'S',
       }
     )
   }

@@ -5,9 +5,9 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.alterTable(this.tableName, (table) => {
-      table.string('full_name', 100).notNullable().alter()
-      table.uuid('campus_id').notNullable().alter()
-      table.uuid('course_id').notNullable().alter()
+      table.string('full_name', 100).notNullable().alter().comment('Nome completo do usuário (obrigatório)')
+      table.uuid('campus_id').notNullable().alter().comment('Vínculo com o campus (obrigatório)')
+      table.uuid('course_id').notNullable().alter().comment('Vínculo com o curso (obrigatório)')
     })
   }
 

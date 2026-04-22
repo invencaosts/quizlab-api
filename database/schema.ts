@@ -215,7 +215,7 @@ export class SubjectSchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['campusId', 'courseId', 'cpf', 'createdAt', 'email', 'fullName', 'id', 'password', 'registration', 'updatedAt'] as const
+  static $columns = ['campusId', 'courseId', 'cpf', 'createdAt', 'email', 'fullName', 'id', 'password', 'registration', 'role', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column()
   declare campusId: string
@@ -235,6 +235,8 @@ export class UserSchema extends BaseModel {
   declare password: string
   @column()
   declare registration: string
+  @column()
+  declare role: "P" | "S" | "A"
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
