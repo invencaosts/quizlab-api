@@ -10,9 +10,10 @@ export default class QuizzesController {
   async index({ auth }: HttpContext) {
     const user = auth.user!
     
-    // Simplificando para depuração
+    // Lista os quizzes com a contagem de questões
     const quizzes = await user.related('quizzes').query()
       .preload('discipline')
+      .withCount('questions')
       .orderBy('createdAt', 'desc')
     return quizzes
   }
