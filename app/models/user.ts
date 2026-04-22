@@ -3,7 +3,7 @@ import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
-import { belongsTo, hasMany } from '@adonisjs/lucid/orm'
+import { beforeSave, belongsTo, hasMany } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import Campus from '#models/campus'
 import Course from '#models/course'
@@ -19,6 +19,13 @@ export default class User extends compose(
   })
 ) {
   static accessTokens = DbAccessTokensProvider.forModel(User)
+  
+  @beforeSave()
+  static async hashPassword(user: any) {
+    if (user.$dirty.password) {
+      user.password = await hash.use('argon2').make(user.password)
+    }
+  }
 
   @belongsTo(() => Campus)
   declare campus: BelongsTo<typeof Campus>
