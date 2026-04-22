@@ -21,7 +21,7 @@ export default class extends BaseSchema {
       table.string('registration', 10).notNullable().unique().comment('Matrícula acadêmica (ex: SUAP)')
       table.string('campus', 100).notNullable().comment('Campus do IFS (ex: Aracaju, Lagarto)')
       table.string('course', 150).nullable().comment('Curso ao qual o aluno/professor está vinculado')
-      
+
       table.enum('role', ['PROFESSOR', 'STUDENT', 'ADMIN'], {
         useNative: true,
         enumName: 'user_role',

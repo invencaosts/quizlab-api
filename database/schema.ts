@@ -218,23 +218,23 @@ export class UserSchema extends BaseModel {
   static $columns = ['campusId', 'courseId', 'cpf', 'createdAt', 'email', 'fullName', 'id', 'password', 'registration', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column()
-  declare campusId: string | null
+  declare campusId: string
   @column()
-  declare courseId: string | null
+  declare courseId: string
   @column()
-  declare cpf: string | null
+  declare cpf: string
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column()
-  declare email: string | null
+  declare email: string
   @column()
-  declare fullName: string | null
+  declare fullName: string
   @column({ isPrimary: true })
   declare id: string
   @column({ serializeAs: null })
-  declare password: string | null
+  declare password: string
   @column()
-  declare registration: string | null
+  declare registration: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }

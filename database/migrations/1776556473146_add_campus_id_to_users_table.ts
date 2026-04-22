@@ -6,7 +6,11 @@ export default class extends BaseSchema {
   async up() {
     this.schema.alterTable(this.tableName, (table) => {
       table.dropColumn('campus')
-      table.uuid('campus_id').references('id').inTable('campuses').onDelete('CASCADE').after('registration').comment('Campus ao qual o usuário está vinculado')
+      table.uuid('campus_id').nullable().comment('Campus ao qual o usuário está vinculado')
+    })
+
+    this.schema.alterTable(this.tableName, (table) => {
+      table.foreign('campus_id').references('id').inTable('campuses').onDelete('SET NULL')
     })
   }
 
