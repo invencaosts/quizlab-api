@@ -22,7 +22,7 @@ export default class User extends compose(
   static accessTokens = DbAccessTokensProvider.forModel(User)
 
   @beforeSave()
-  static async hashPassword(user: User) {
+  static async hashPassword(user: any) {
     if (user.$dirty.password && user.password) {
       user.password = await hash.make(user.password)
     }
