@@ -20,9 +20,16 @@ export default class RbacMiddleware {
       return next()
     }
 
-    // Pega a rota atual e remove o prefixo /api/v1 para bater com o href do menu
-    let url = ctx.request.url().replace(/^\/api\/v1/, '')
+    // Pega apenas o caminho da rota (sem query string) e remove o prefixo /api/v1
+    let url = ctx.request.url().split('?')[0].replace(/^\/api\/v1/, '')
     if (!url.startsWith('/')) url = '/' + url
+    
+    // Força o carregamento da role se ela não estiver presente
+    if (!user.role) {
+      await user.load((loader) => loader.load('role'))
+    }
+    
+    console.log(`[RBAC Debug] URL: ${url} | User Role: ${user.role?.slug}`);
     
     // Procura no banco de dados se essa rota está mapeada em um menu
     // Usamos o início da URL para capturar sub-rotas (ex: /quizzes/123)
@@ -31,17 +38,17 @@ export default class RbacMiddleware {
       .whereRaw('? LIKE href || \'%\'', [url])
       .first()
 
-    // Rota protegida pelo RBAC mas não registrada nos menus: nega por padrão
+    // Rota protegida pelo RBAC mas não registrada nos menus: permite por padrão
+    // (Pois pode ser uma rota utilitária como /profile ou /logout)
     if (!menu) {
-      return ctx.response.forbidden({
-        message: 'Rota não registrada no sistema de permissões.',
-        code: 'E_RBAC_UNREGISTERED_ROUTE',
-      })
+      console.log(`[RBAC Debug] No menu found for ${url}. Allowing.`);
+      return next()
     }
 
     const hasPermission = await menu.related('roles').query().where('roles.id', user.roleId).first()
 
     if (!hasPermission) {
+      console.log(`[RBAC Debug] Permission denied for ${url}. Role ID: ${user.roleId}`);
       return ctx.response.forbidden({
         message: 'Você não tem permissão para acessar este recurso.',
         code: 'E_RBAC_FORBIDDEN',
