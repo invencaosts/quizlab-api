@@ -22,13 +22,12 @@ export default class User extends compose(
   static accessTokens = DbAccessTokensProvider.forModel(User)
 
   @beforeSave()
-  public static async hashPassword(user: User) {
-    if (user.$dirty.password && user.password) {
-      // Se a senha já começar com $argon2, ela já é um hash e não deve ser re-criptografada
-      if (user.password.startsWith('$argon2')) {
+  public async hashPassword() {
+    if (this.$dirty.password && this.password) {
+      if (this.password.startsWith('$argon2')) {
         return
       }
-      user.password = await hash.make(user.password)
+      this.password = await hash.make(this.password)
     }
   }
 
